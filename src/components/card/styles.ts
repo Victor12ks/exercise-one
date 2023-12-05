@@ -10,7 +10,9 @@ export const Container = styled.div<{
     position: relative;
     width: 310px;
     height: 430px;
-    background: #232323;
+    background: ${(props) => props.$primaryColor};
+    opacity: 90%;
+    // background: #232323;
     border-radius: 20px;
     overflow: hidden;
   }
@@ -22,7 +24,7 @@ export const Container = styled.div<{
     left: 0;
     width: 100%;
     height: 100%;
-    background: ${(props) => props.$primaryColor};
+    background: ${(props) => props.$secundaryColor};
     clip-path: circle(150px at 80% 20%);
     transition: 0.5s ease-in-out;
   }
@@ -46,7 +48,7 @@ export const Container = styled.div<{
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 10000;
+    // z-index: 10000;
     width: 100%;
     height: 220px;
     transition: 0.5s;
@@ -84,7 +86,7 @@ export const Container = styled.div<{
     font-weight: 600;
     letter-spacing: 1px;
     color: #fff;
-    margin: 0;
+    margin-bottom: 15px;
   }
 
   .card .contentBx .size,
@@ -154,7 +156,7 @@ export const Container = styled.div<{
   .card .contentBx a {
     display: inline-block;
     padding: 10px 20px;
-    background: ${(props) => props.$secundaryColor};
+    background: white;
     border-radius: 4px;
     margin-top: 10px;
     text-decoration: none;
@@ -166,9 +168,15 @@ export const Container = styled.div<{
     margin-top: 0;
   }
 
+  .card .contentBx a:hover {
+    background: ${(props) => props.$secundaryColor};
+    transition-delay: 0s;
+    color: white;
+  }
+
   .card:hover .contentBx a {
+    margin-top: 10px;
     opacity: 1;
     transform: translateY(0px);
-    transition-delay: 0.75s;
   }
 `;
