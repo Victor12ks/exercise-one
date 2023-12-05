@@ -38,10 +38,18 @@ const Game = ({ teams }: GameProps) => {
 
         if (selectedCards.length == 1) {
           if (verifyTeams(team)) {
+            var audio = new Audio(
+              "https://www.myinstants.com/media/sounds/super-mario-coin-sound_rp53n4m.mp3"
+            );
+            audio.play();
             setPoints(points + 10);
             setHitCards([...hitCards, team?.name]);
             setSelectedCards([]);
           } else {
+            var audio = new Audio(
+              "https://www.myinstants.com/media/sounds/sm64-mario-pain.mp3"
+            );
+            audio.play();
             if (points >= 5) setPoints(points - 5);
             setTimeout(() => {
               setSelectedCards([]);
@@ -54,8 +62,13 @@ const Game = ({ teams }: GameProps) => {
   );
 
   useEffect(() => {
-    if (hitCards?.length > 0 && teamsGame?.length / 2 === hitCards?.length)
+    if (hitCards?.length > 0 && teamsGame?.length / 2 === hitCards?.length) {
+      var audio = new Audio(
+        "https://www.myinstants.com/media/sounds/street-fighter-ii-you-win-perfect.mp3"
+      );
+      audio.play();
       setStepGame(EStepGame.Finished);
+    }
   }, [hitCards]);
 
   const menuStyle: React.CSSProperties = {
@@ -77,11 +90,11 @@ const Game = ({ teams }: GameProps) => {
     if (teams) {
       let countTeams = 0;
       if (value === "easy") {
-        countTeams = 4;
-      } else if (value === "normal") {
-        countTeams = 8;
-      } else if (value === "crazy") {
         countTeams = 12;
+      } else if (value === "normal") {
+        countTeams = 16;
+      } else if (value === "crazy") {
+        countTeams = 20;
       }
       const teamsRandon = teams.slice(0, countTeams);
       const final = getAllTeams().filter((x) =>
@@ -94,28 +107,31 @@ const Game = ({ teams }: GameProps) => {
 
   const startGame = () => {
     setPoints(0);
-    let timeOut = 0;
     let timeDeadLine = 0;
     if (difficulty === "easy") {
-      timeDeadLine = Date.now() + 250 * 60;
-      timeOut = 3000;
+      timeDeadLine = Date.now() + 83.2 * 60 * 15;
     } else if (difficulty === "normal") {
-      timeDeadLine = Date.now() + 166.6 * 60;
-      timeOut = 2000;
+      timeDeadLine = Date.now() + 166.6 * 60 * 15;
     } else if (difficulty === "crazy") {
-      timeDeadLine = Date.now() + 83.2 * 60;
-      timeOut = 1000;
+      timeDeadLine = Date.now() + 250 * 60 * 15;
     }
     setStepGame(EStepGame.Starting);
-
+    var audio = new Audio(
+      "https://www.myinstants.com/media/sounds/top-gear-01.mp3"
+    );
+    audio.play();
     setTimeout(() => {
       setStepGame(EStepGame.Playing);
       setDeadline(timeDeadLine);
-    }, timeOut);
+    }, 16000);
   };
 
   const stopGame = () => {
     setStepGame(EStepGame.GameOver);
+    var audio = new Audio(
+      "https://www.myinstants.com/media/sounds/super-mario-death-sound-sound-effect.mp3"
+    );
+    audio.play();
   };
 
   return (
@@ -152,11 +168,7 @@ const Game = ({ teams }: GameProps) => {
                 Stop
               </Button>
             )}
-            <Countdown
-              onFinish={() => setStepGame(EStepGame.Finished)}
-              value={deadline}
-              format="mm:ss"
-            />
+            <Countdown onFinish={stopGame} value={deadline} format="mm:ss" />
             <div id="Mletra10">{points}</div>
           </Flex>
         </Flex>
