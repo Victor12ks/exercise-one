@@ -85,7 +85,7 @@ const Game = ({ teams }: GameProps) => {
     borderRadius: 6,
   };
 
-  const onChange = (value: string) => {
+  const changeDifficulty = (value: string) => {
     setDifficulty(value);
     if (teams) {
       let countTeams = 0;
@@ -142,7 +142,7 @@ const Game = ({ teams }: GameProps) => {
             <Select
               placeholder="Select Difficulty"
               optionFilterProp="children"
-              onChange={onChange}
+              onChange={changeDifficulty}
               disabled={stepGame !== EStepGame.Not_Started}
               options={[
                 {
@@ -160,7 +160,11 @@ const Game = ({ teams }: GameProps) => {
               ]}
             />
             {deadline == 0 ? (
-              <Button onClick={startGame} type="default">
+              <Button
+                onClick={startGame}
+                type="default"
+                disabled={difficulty == ""}
+              >
                 Start
               </Button>
             ) : (
